@@ -25,7 +25,10 @@ if(isAuthRoute){
      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl)) 
     }
     return undefined };
-
+    
+    if (req.headers.get("x-middleware-subrequest")) {
+      return new Response("Forbidden", { status: 403 });
+    }
 
 if(!isLoggedIn && !isPublicRoute){
   let callbackUrl = nextUrl.pathname;
